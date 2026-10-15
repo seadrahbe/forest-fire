@@ -49,6 +49,8 @@ public class Fire {
 
         // Implement this AND add more tests!!!
 
+        
+
        Location start = new Location(matchR, matchC);
 
        Set<Location> visited = new HashSet<>();
@@ -58,9 +60,12 @@ public class Fire {
        int count = 0;
 
        while(!queue.isEmpty()) {
+            count++;
             Location current = queue.remove();
             if(visited.contains(current)) continue;
+
             visited.add(current);
+            forest[current.row()][current.column()] = '.';
 
             List<Location> neighbors = possibleMoves(forest, current);
             for(Location neighbor : neighbors) {
@@ -69,7 +74,7 @@ public class Fire {
        }
 
 
-        return -1;
+        return count;
     }
 
     public static List<Location> possibleMoves(char[][] forest, Location current) {
