@@ -58,7 +58,6 @@ List<List<Location>> res = new ArrayList<>();
 
         Location start = new Location(matchR, matchC);
         queue.add(start);
-        
         while(!queue.isEmpty()){
         List<Location> level = new ArrayList<>();
         int size = queue.size();
@@ -72,8 +71,8 @@ List<List<Location>> res = new ArrayList<>();
 
               List<Location> neighbors = possibleMoves(forest, loc);
                 for(Location neighbor : neighbors){
-                visited.add(neighbor);
                 queue.add(neighbor);
+                visited.add(loc);
                 }
 
                 }
