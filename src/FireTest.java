@@ -75,5 +75,22 @@ public class FireTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testTimeToBurnAllTrees() {
+        char[][] forest = {
+            {'t','t','t','t','t','t','t','t','t'},
+            {'t','t','t','t','t','t','t','t','t'},
+            {'t','t','t','t','t','t','t','t','t'},
+            {'t','t','t','t','t','t','t','t','t'}
+        };
+
+        int matchR = 2;
+        int matchC = 6;
+
+        int expected = 7;
+        int actual = Fire.timeToBurn(forest, matchR, matchC);
+
+        assertEquals(expected, actual);
+    }
     // Add more tests!
 }
