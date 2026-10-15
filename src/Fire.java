@@ -1,5 +1,9 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 public class Fire {
     /**
@@ -41,8 +45,30 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
+        // time
 
         // Implement this AND add more tests!!!
+
+       Location start = new Location(matchR, matchC);
+
+       Set<Location> visited = new HashSet<>();
+       Queue<Location> queue = new ArrayDeque<>();
+
+       queue.add(start);
+       int count = 0;
+
+       while(!queue.isEmpty()) {
+            Location current = queue.remove();
+            if(visited.contains(current)) continue;
+            visited.add(current);
+
+            List<Location> neighbors = possibleMoves(forest, current);
+            for(Location neighbor : neighbors) {
+                queue.add(neighbor);
+            }
+       }
+
+
         return -1;
     }
 
