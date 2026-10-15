@@ -46,7 +46,7 @@ public class Fire {
         return -1;
     }
 
-    public static List<int[]> possibleMoves(char[][] forest, int[] current) {
+    public static List<Location> possibleMoves(char[][] forest, Location current) {
         int[][] moves = new int[][] {
             {-1, 0}, // UP
             {1, 0}, // DOWN
@@ -54,13 +54,14 @@ public class Fire {
             {0, 1} //RIGHT
         };
 
-        List<int[]> validMoves = new ArrayList<>();
+        List<Location> validMoves = new ArrayList<>();
 
         for(int[] move : moves) {
-            int[] possibleMove = new int[] {current[0] + move[0], current[1] + move[1]};
-            if(possibleMove[0] >= 0 && possibleMove[0] < forest.length && 
-                possibleMove[1] >= 0 && possibleMove[1] < forest[0].length &&
-                forest[possibleMove[0]][possibleMove[1]] != '.') {
+           Location possibleMove = new Location(current.row() + move[0], current.column() + move[1]);
+
+            if (possibleMove.row() >= 0 && possibleMove.row() < forest.length && 
+                possibleMove.column() >= 0 && possibleMove.column() < forest[0].length &&
+                forest[possibleMove.row()][possibleMove.column()] != '.') {
                     validMoves.add(possibleMove);
             }
         }
