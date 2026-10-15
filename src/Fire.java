@@ -50,55 +50,62 @@ public static int timeToBurn(char[][] forest, int matchR, int matchC) {
 
 // Implement this AND add more tests!!!
 
-Location start = new Location(matchR, matchC);
+List<List<Location>> res = new ArrayList<>();
 
-Set<Location> visited = new HashSet<>();
     Queue<Location> queue = new LinkedList<>();
+    Set<Location> visited = new HashSet<>();
 
-      // start at match location
+
+        Location start = new Location(matchR, matchC);
         queue.add(start);
-        int count = 0;
+        while(!queue.isEmpty()){
+        List<Location> level = new ArrayList<>();
+        int size = queue.size();
 
-        while(!queue.isEmpty()) {
-        Location current = queue.remove(); 
-        if(visited.contains(current)) continue;
-        visited.add(current); // add match location to visited
-        
+            for(int i = 0; i < size; i++){ 
+            Location loc=queue.poll();
+            if(forest[loc.row()][loc.column()] == 't'){
+            if(visited.contains(loc)) continue;
+            level.add(loc);
+              }
+
+              List<Location> neighbors = possibleMoves(forest, loc);
+                for(Location neighbor : neighbors){
+                queue.add(neighbor);
+                visited.add(loc);
+                }
+
+                }
+                
+
+                if(level.size() > 0){
+                res.add(level);
+                }
+
+                }
+
+                return res.size() - 1;
+
+                }
 
 
-        // call possibleMoves to return adjacent trees
-        List<Location> neighbors = possibleMoves(forest, current);
+                public static List<Location> possibleMoves(char[][] forest, Location current) {
+                  int[][] moves = new int[][] {
+                  {-1, 0}, // UP
+                  {1, 0}, // DOWN
+                  {0, -1}, //LEFT
+                  {0, 1} //RIGHT
+                  };
 
-        // loop through adjacent trees
+                  List<Location> validMoves = new ArrayList
 
-          for(Location neighbor : neighbors) {
-          queue.add(neighbor);
+                    <>();
 
-          }
+                      for(int[] move : moves) {
+                      Location possibleMove = new Location(current.row() + move[0], current.column() + move[1]);
 
-          }
+                      if (possibleMove.row() >= 0 && possibleMove.row()
 
+                      < forest.length && possibleMove.column()>= 0 && possibleMove.column()
 
-          return count;
-          }
-
-          public static List<Location> possibleMoves(char[][] forest, Location current) {
-            int[][] moves = new int[][] {
-            {-1, 0}, // UP
-            {1, 0}, // DOWN
-            {0, -1}, //LEFT
-            {0, 1} //RIGHT
-            };
-
-            List<Location> validMoves = new ArrayList
-
-              <>();
-
-                for(int[] move : moves) {
-                Location possibleMove = new Location(current.row() + move[0], current.column() + move[1]);
-
-                if (possibleMove.row() >= 0 && possibleMove.row()
-
-                < forest.length && possibleMove.column()>= 0 && possibleMove.column()
-
-                  < forest[0].length && forest[possibleMove.row()][possibleMove.column()] !='.' ) { validMoves.add(possibleMove); } } return validMoves; } }
+                        < forest[0].length && forest[possibleMove.row()][possibleMove.column()] !='.' ) { validMoves.add(possibleMove); } } return validMoves; } }
